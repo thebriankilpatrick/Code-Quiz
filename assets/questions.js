@@ -1,4 +1,6 @@
-var questions = [
+// Declaring my questions as a variable
+
+var questionSet = [
     {
         title: "What is the name of Jon Snow's direwolf?",
         choices: ["Grey Wind", "Nymeria", "Ghost", "Summer"],
@@ -50,3 +52,8 @@ var questions = [
         answer: "Jon Arryn"
     }
 ]
+
+// Grabbing title element and setting it as a variable
+var pageTitle = document.querySelector("title");
+// Grabbing my question container and setting it as a variable
+var questionContainer = document.querySelector(".questionContainer");

@@ -24,3 +24,8 @@ body {
 .questionContainer {
     margin: 0 auto;
 }
+
+#startTimer {
+    font-size: 50px;
+    color: white;
+}

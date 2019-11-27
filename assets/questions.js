@@ -60,23 +60,24 @@ var questionContainer = document.querySelector(".questionContainer");
 // Grabbing my image and setting it as a variable
 var homeScreenImage = document.querySelector("#homeScreenImage");
 
+var startTimer = document.querySelector("#startTimer");
+
 
 // Start game by clicking button, begin countdown timer
 // Page should change style, and begin quiz.  This should also start a timer
 // An answer will chime a sound, and display correct or incorrect
 // Then move onto next question
-// Points should be calculated based on how fast the question is answered (correctly)
 // Incorrect answers will result in a time penalty
 // Running out of time should end the game
-// At game's end, it should display a form to type your name
+// At game's end, it should display a form to type your name.  The score is time remaining.
 // It will store your name in localStorage
 // The other button should populate a table, with all results displayed from form
 
 
 // Onclick event on button.  When clicked, run function.
 // Function will change setAttribute of body, to look more appropriate for a quiz
-// It should also start a countdown timer
-// At the end of timer, the first question should display.
+// It should also start a countdown timer??
+// At the end of timer??, the first question should display.
 // Display questions by a function using setAttribute and textContent or innerHTML
 // Use eventListeners or onClick events on answers?  Or even if else?
 // If answer is incorrect, run function
@@ -88,6 +89,15 @@ var homeScreenImage = document.querySelector("#homeScreenImage");
 // The user can enter name, store is the localStorage
 
 
-function playGame() {
-    
+function startQuiz() {
+    // Removing picture and buttons
+    homeScreenImage.removeAttribute("src", "assets/images/GoTHomeImage.jpeg");
+    document.querySelector("#playGame").remove();
+    document.querySelector("#highScores").remove();
+    // Run next function?
+    preQuizTimer();
+}
+
+function preQuizTimer() {
+    startTimer.textContent = "Quiz starts in "; // + var set in timer?
 }

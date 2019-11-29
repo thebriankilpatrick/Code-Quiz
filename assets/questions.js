@@ -59,8 +59,11 @@ var pageTitle = document.querySelector("title");
 var questionContainer = document.querySelector(".questionContainer");
 // Grabbing my image and setting it as a variable
 var homeScreenImage = document.querySelector("#homeScreenImage");
-
+// Grabbing my h2 tag (countdownTimer) and setting it as a variable
 var startTimer = document.querySelector("#startTimer");
+
+var question = document.querySelector("#question");
+var answers = document.querySelector("#answers");
 
 
 // Start game by clicking button, begin countdown timer
@@ -76,8 +79,8 @@ var startTimer = document.querySelector("#startTimer");
 
 // Onclick event on button.  When clicked, run function.
 // Function will change setAttribute of body, to look more appropriate for a quiz
-// It should also start a countdown timer??
-// At the end of timer??, the first question should display.
+// It should also start a countdown timer
+// At the end of timer, the first question should display.
 // Display questions by a function using setAttribute and textContent or innerHTML
 // Use eventListeners or onClick events on answers?  Or even if else?
 // If answer is incorrect, run function
@@ -95,9 +98,19 @@ function startQuiz() {
     document.querySelector("#playGame").remove();
     document.querySelector("#highScores").remove();
     // Run next function?
-    preQuizTimer();
+    countdownTimer();
 }
 
-function preQuizTimer() {
-    startTimer.textContent = "Quiz starts in "; // + var set in timer?
+function countdownTimer() {  // Timer that counts down before quiz starts
+    var countdownSeconds = 5;
+    var timerInterval = setInterval(function() {
+        startTimer.textContent = "Quiz starts in " + countdownSeconds; 
+        countdownSeconds--;
+        if (countdownSeconds < 0) {
+            clearInterval(timerInterval);
+            // Run new function
+        }
+    }, 1000);
 }
+
+

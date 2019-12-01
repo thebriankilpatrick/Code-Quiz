@@ -15,6 +15,25 @@ body {
     text-align: center;
 }
 
+#question {
+    color: white;
+    font-size: 20px;
+}
+
+#answers {
+    padding-left: 0;
+}
+
+.choices {
+    color: white;
+    cursor: pointer;
+}
+
+#timeRemaining {
+    color: white;
+    font-size: 20px;
+}
+
 #homeScreenImage {
     width: 80%;
     height: auto;

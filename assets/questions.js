@@ -62,6 +62,10 @@ var homeScreenImage = document.querySelector("#homeScreenImage");
 // Grabbing my h2 tag (countdownTimer) and setting it as a variable
 var startTimer = document.querySelector("#startTimer");
 
+var timeRemaining = document.querySelector("#timeRemaining");
+
+var quizTimer = 75;
+
 var question = document.querySelector("#question");
 var answers = document.querySelector("#answers");
 
@@ -89,7 +93,7 @@ var answers = document.querySelector("#answers");
 // Function will calculate a score, then display next question.  Store points in a var
 // At the end of game, run function to display a form.
 // In this form, the var where the score is stored will display
-// The user can enter name, store is the localStorage
+// The user can enter name, store in the localStorage
 
 
 function startQuiz() {
@@ -97,7 +101,7 @@ function startQuiz() {
     homeScreenImage.removeAttribute("src", "assets/images/GoTHomeImage.jpeg");
     document.querySelector("#playGame").remove();
     document.querySelector("#highScores").remove();
-    // Run next function?
+    // Run next function
     countdownTimer();
 }
 
@@ -106,11 +110,72 @@ function countdownTimer() {  // Timer that counts down before quiz starts
     var timerInterval = setInterval(function() {
         startTimer.textContent = "Quiz starts in " + countdownSeconds; 
         countdownSeconds--;
-        if (countdownSeconds < 0) {
+        if (countdownSeconds === 0) {
             clearInterval(timerInterval);
             // Run new function
+            quizTime();
+            displayQuiz();
+            startTimer.textContent = "";
         }
     }, 1000);
 }
 
 
+function quizTime() {
+    var timerInterval = setInterval(function() {
+        timeRemaining.textContent = "Time Remaining: " + quizTimer;
+        quizTimer--;
+        if (quizTimer === 0) {
+            clearInterval(timerInterval);
+        }
+    }, 1000);
+}
+
+var currentQuestion = 0;
+
+function displayQuiz() {
+    var q = questionSet[currentQuestion];
+    question.textContent = q.title;
+    for (var i = 0; i < q.choices.length; i++) {
+        var answerBtn = document.createElement("button");
+        answerBtn.setAttribute("style", "display: block");
+        answerBtn.textContent = q.choices[i];
+        answers.appendChild(answerBtn);
+    }
+    answerBtn.addEventListener("click", function checkAnswer() {
+        if (answerBtn.textContent === q.answer) {
+            currentQuestion += 1;
+            displayQuiz();
+        }
+        else {
+            quizTimer - 10;
+            currentQuestion += 1;
+            displayQuiz();
+        }
+    })
+}
+
+// function checkAnswer() {
+//     currentQuestion += 1;
+//     displayQuiz();
+//     if (answerBtn.textContent === answer) {
+//         displayQuiz();
+//     }
+//     else {
+//         quizTimer - 10;
+//         displayQuiz();
+//     }
+// }
+
+
+// Show each "title" in questionSet array, ONE at a time
+// Create a button/submit for each of the "choices", within the corresponding "title"
+
+
+
+
+// Next steps..
+// Run function for quiz timer
+// Run function to display questions and answers
+// An incorrect answer will remove 10 seconds from timer, then display next question
+// A correct answer will display next question

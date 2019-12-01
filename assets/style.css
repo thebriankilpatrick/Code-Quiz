@@ -24,9 +24,9 @@ body {
     padding-left: 0;
 }
 
-.choices {
+#answerResult {
+    font-size: 20px;
     color: white;
-    cursor: pointer;
 }
 
 #timeRemaining {

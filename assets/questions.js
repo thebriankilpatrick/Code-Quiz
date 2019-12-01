@@ -68,6 +68,7 @@ var quizTimer = 75;
 
 var question = document.querySelector("#question");
 var answers = document.querySelector("#answers");
+var answerResult = document.querySelector("#answerResult");
 
 
 // Start game by clicking button, begin countdown timer
@@ -135,37 +136,32 @@ var currentQuestion = 0;
 
 function displayQuiz() {
     var q = questionSet[currentQuestion];
+    var a = q.answer;
     question.textContent = q.title;
     for (var i = 0; i < q.choices.length; i++) {
         var answerBtn = document.createElement("button");
+        answerBtn.className = "answerBtn";
         answerBtn.setAttribute("style", "display: block");
         answerBtn.textContent = q.choices[i];
         answers.appendChild(answerBtn);
     }
-    answerBtn.addEventListener("click", function checkAnswer() {
-        if (answerBtn.textContent === q.answer) {
-            currentQuestion += 1;
-            displayQuiz();
+    answers.addEventListener("click", function checkAnswer(e) {
+        console.log(quizTimer);
+        var userChoice = e.target.textContent;
+        if (userChoice === a) {  
+            answerResult.textContent = "Correct!"
         }
-        else {
-            quizTimer - 10;
-            currentQuestion += 1;
-            displayQuiz();
+        else {   
+            quizTimer -= 10;
+            answerResult.textContent = "Wrong!";
         }
+        console.log(quizTimer);
+        currentQuestion += 1;
+        answers.innerHTML = ""; // This is to remove old answers
+        displayQuiz();
+        answers.removeEventListener("click" , checkAnswer);
     })
 }
-
-// function checkAnswer() {
-//     currentQuestion += 1;
-//     displayQuiz();
-//     if (answerBtn.textContent === answer) {
-//         displayQuiz();
-//     }
-//     else {
-//         quizTimer - 10;
-//         displayQuiz();
-//     }
-// }
 
 
 // Show each "title" in questionSet array, ONE at a time

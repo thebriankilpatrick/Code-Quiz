@@ -70,6 +70,11 @@ var question = document.querySelector("#question");
 var answers = document.querySelector("#answers");
 var answerResult = document.querySelector("#answerResult");
 
+var quizEndContainer = document.querySelector(".quizEndContainer");
+var quizEndScore = document.querySelector("#quizEndScore");
+var quizEnd = document.querySelector("#quizEnd");
+var userForm = document.querySelector("#userForm");
+
 
 // Start game by clicking button, begin countdown timer
 // Page should change style, and begin quiz.  This should also start a timer
@@ -127,6 +132,12 @@ function quizTime() {
         timeRemaining.textContent = "Time Remaining: " + quizTimer;
         quizTimer--;
         if (quizTimer === 0) {
+            gameOver();
+            clearInterval(timerInterval);
+        }
+        else if (quizTimer < 0) {
+            quizTimer = 0;
+            gameOver();
             clearInterval(timerInterval);
         }
     }, 1000);
@@ -163,12 +174,28 @@ function displayQuiz() {
     })
 }
 
+function removeQuiz() {
+    answers.remove();
+    question.remove();
+    answerResult.remove();
+}
 
-// Show each "title" in questionSet array, ONE at a time
-// Create a button/submit for each of the "choices", within the corresponding "title"
+function gameOver() {
+    removeQuiz();
+    quizEnd.textContent = "Game Over";
+    quizEndScore.textContent = "Your Score: 0";
+    userEntry();
+}
 
+function userEntry() {
+    var userInput = document.createElement("input");
+    userInput.setAttribute("type", "text");
+    userForm.appendChild(userInput);
+}
 
-
+// Fix quizTimer to not go below 0
+// When quizTimer is equal to 0, run function
+// function ends game, creates a form, and pulls the int from quizTimer as score
 
 // Next steps..
 // Run function for quiz timer

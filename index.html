@@ -19,13 +19,18 @@
             </div>
             <button id="playGame" onclick="startQuiz()">Play Game</button>
             <button id="highScores">High Scores</button>
+            <div class="questionContainer"> <!--This is where the questions will go-->
+                <p id="question"></p>
+                <ol id="answers"></ol>
+                <p id="answerResult"></p>  <!--Displays either correct or wrong-->
+            </div>
+            <div class="quizEndContainer">
+                <p id="quizEnd"></p>
+                <p id="quizEndScore"></p> 
+                <form id="userForm"></form>              
+            </div>
         </div>
 
-        <div class="questionContainer"> <!--This is where the questions will go-->
-            <p id="question"></p>
-            <ol id="answers"></ol>
-            <p id="answerResult"></p>
-        </div>
 
         <script src="assets/questions.js"></script>
     </body>

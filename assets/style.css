@@ -34,14 +34,20 @@ body {
     font-size: 20px;
 }
 
+#quizEnd {
+    color: white;
+    font-size: 20px;
+}
+
+#quizEndScore {
+    color: white;
+    font-size: 20px;
+}
+
 #homeScreenImage {
     width: 80%;
     height: auto;
     opacity: .85;
-}
-
-.questionContainer {
-    margin: 0 auto;
 }
 
 #startTimer {

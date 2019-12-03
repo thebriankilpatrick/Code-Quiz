@@ -1,4 +1,5 @@
 // Declaring my questions as a variable
+// GAME OF THRONESSSSS
 
 var questionSet = [
     {
@@ -62,44 +63,22 @@ var homeScreenImage = document.querySelector("#homeScreenImage");
 // Grabbing my h2 tag (countdownTimer) and setting it as a variable
 var startTimer = document.querySelector("#startTimer");
 
+// Grabbing my div where the quizTimer will be displayed
 var timeRemaining = document.querySelector("#timeRemaining");
 
+// Main timer that runs during quiz
 var quizTimer = 75;
 
+// Grabbing my divs where the quiz questions and answers will be displayed
 var question = document.querySelector("#question");
 var answers = document.querySelector("#answers");
 var answerResult = document.querySelector("#answerResult");
 
+// Grabbing my divs where the end of quiz form and score will be displayed
 var quizEndContainer = document.querySelector(".quizEndContainer");
 var quizEndScore = document.querySelector("#quizEndScore");
 var quizEnd = document.querySelector("#quizEnd");
 var userForm = document.querySelector("#userForm");
-
-
-// Start game by clicking button, begin countdown timer
-// Page should change style, and begin quiz.  This should also start a timer
-// An answer will chime a sound, and display correct or incorrect
-// Then move onto next question
-// Incorrect answers will result in a time penalty
-// Running out of time should end the game
-// At game's end, it should display a form to type your name.  The score is time remaining.
-// It will store your name in localStorage
-// The other button should populate a table, with all results displayed from form
-
-
-// Onclick event on button.  When clicked, run function.
-// Function will change setAttribute of body, to look more appropriate for a quiz
-// It should also start a countdown timer
-// At the end of timer, the first question should display.
-// Display questions by a function using setAttribute and textContent or innerHTML
-// Use eventListeners or onClick events on answers?  Or even if else?
-// If answer is incorrect, run function
-// Function will set timer to timer -= 10 (seconds), then display next question 
-// If answer is correct, run function
-// Function will calculate a score, then display next question.  Store points in a var
-// At the end of game, run function to display a form.
-// In this form, the var where the score is stored will display
-// The user can enter name, store in the localStorage
 
 
 function startQuiz() {
@@ -107,7 +86,7 @@ function startQuiz() {
     homeScreenImage.removeAttribute("src", "assets/images/GoTHomeImage.jpeg");
     document.querySelector("#playGame").remove();
     document.querySelector("#highScores").remove();
-    // Run next function
+    // Run quiz countdown timer function.  5 seconds until quiz starts.
     countdownTimer();
 }
 
@@ -118,8 +97,8 @@ function countdownTimer() {  // Timer that counts down before quiz starts
         countdownSeconds--;
         if (countdownSeconds === 0) {
             // Run new function
-            quizTime();
-            displayQuiz();
+            quizTime();  // Main quiz timer
+            displayQuiz();  // Main function.  This is where the questions and answers populate
             startTimer.textContent = "";
             clearInterval(timerInterval);
         }
@@ -127,33 +106,38 @@ function countdownTimer() {  // Timer that counts down before quiz starts
 }
 
 
-function quizTime() {
+function quizTime() {   // The main quiz timer.  You have 75 seconds to answer the questions
     var timerInterval = setInterval(function() {
         timeRemaining.textContent = "Time Remaining: " + quizTimer;
         quizTimer--;
         if (quizTimer === 0) {
-            gameOver();
+            gameOver();  // If you run out of time, run this quiz-ending function
             clearInterval(timerInterval);
         }
         else if (quizTimer < 0) {
+            // If you answer a question incorrectly that brings the timer below 0
+            // Set the timer to 0, and then run the quiz-ending function
             quizTimer = 0;
-            gameOver();
+            gameOver(); 
             clearInterval(timerInterval);
         }
         else if (currentQuestion === questionSet.length) {
+            // If the index for the questionSet array is at length, stop the timer
             clearTimeout(timerInterval);
         }
     }, 1000);
 }
 
+// Storing this as index and setting it to 0
 var currentQuestion = 0;
 
-function displayQuiz() {
+function displayQuiz() {  // The main function that displays the questions and answers
 
     var q = questionSet[currentQuestion];
     var a = q.answer;
     question.textContent = q.title;
     for (var i = 0; i < q.choices.length; i++) {
+        // Creating a button for each answer in the appropriate question
         var answerBtn = document.createElement("button");
         answerBtn.className = "answerBtn";
         answerBtn.setAttribute("style", "display: block");
@@ -161,7 +145,7 @@ function displayQuiz() {
         answers.appendChild(answerBtn);
     }
     answers.addEventListener("click", function checkAnswer(e) {
-        console.log(quizTimer);
+        // Adding the click event listener on the newly created buttons
         var userChoice = e.target.textContent;
         if (userChoice === a) {  
             answerResult.textContent = "Correct!"
@@ -172,28 +156,32 @@ function displayQuiz() {
         }
         currentQuestion += 1;
         if (currentQuestion === questionSet.length) {
+            // Runs this function to end the quiz if all the questions are answered before time runs out
             gameWin();
         }
         answers.innerHTML = ""; // This is to remove old answers
         displayQuiz();
+        // This removes the event listener, so when it applies again, it is the only listener applied to the buttons
         answers.removeEventListener("click" , checkAnswer);
     })
 }
 
+// This function runs if the user answers all the questions before the timer runs out
 function gameWin() {   // See if this works with last question button click
     removeQuiz();
     quizEnd.textContent = "Game Over";
     quizEndScore.textContent = "Your score: " + quizTimer;
-    // clearTimeout()
     userEntry();
 }
 
+// This function removes all quiz content
 function removeQuiz() {
     answers.remove();
     question.remove();
     answerResult.remove();
 }
 
+// This function is run when the timer runs to 0.  You lose, and your score is 0, noob
 function gameOver() {
     removeQuiz();
     quizEnd.textContent = "Game Over";
@@ -201,7 +189,7 @@ function gameOver() {
     userEntry();
 }
 
-// Change array to dynamically add 1,2,3...
+// Change array to dynamically add 1,2,3...  FIX ME!!
 var user = ["user1", "user2", "user3", "user4", "user5"];  // See below at submitScore
 var index = 0;
 
@@ -221,16 +209,11 @@ function userEntry() {
             score: " " + quizTimer,
         };  
         window.localStorage.setItem(user[index], JSON.stringify(userInfo));
-        index += 1;  // Add button to run function to do quiz again.
+        index += 1;  // Add button to run function to do quiz again, perhaps?
     })
 }
 
-function viewScores() {  // Creating table to display high scores
-   
-}
-
 // Next steps..
-// function ends game, creates a form, and pulls the int from quizTimer as score
-// Add event listener to submit button, on click
-// On click, it will store user input and score into localStorage
-// Then it will display high scores page
+// Fix high score submit button
+// localStorage.getItem to display scores in a table, perhaps?
+

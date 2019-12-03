@@ -13,25 +13,24 @@
     <body>
         <div class="mainContainer">
             <h2 id="startTimer"></h2> <!--This is the pre quiz countdown timer-->
-            <div id="timeRemaining"></div>
-            <div class="picContainer">
+            <div id="timeRemaining"></div>  <!--This is where the quiz timer is displayed-->
+            <div class="picContainer"> 
                 <img src="assets/images/GoTHomeImage.jpeg" id="homeScreenImage"/>
                 <button id="playGame" onclick="startQuiz()">Play Game</button>
                 <button id="highScores" onclick="viewScores()">High Scores</button>
             </div>
-            <div class="questionContainer"> <!--This is where the questions will go-->
+            <div class="questionContainer"> <!--This is where the questions and answer choices will go-->
                 <p id="question"></p>
                 <ol id="answers"></ol>
                 <p id="answerResult"></p>  <!--Displays either correct or wrong-->
             </div>
-            <div class="quizEndContainer">
+            <div class="quizEndContainer">  <!--This is where the end of quiz content is displayed-->
                 <p id="quizEnd"></p>
                 <p id="quizEndScore"></p> 
                 <form id="userForm"></form>              
             </div>
         </div>
-
-
+        
         <script src="assets/questions.js"></script>
     </body>
 </html>

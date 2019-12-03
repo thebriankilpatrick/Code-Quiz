@@ -4,22 +4,24 @@ body {
     background-color: rgb(0, 0, 0);
 }
 
+/* This is the main container, where all quiz content is nested in */
 .mainContainer {
     width: 100%;
     text-align: center;
 }
 
+/* This is where all questions and answers are displayed */
 .questionContainer {
     width: 30%;
     margin: 0 auto;
 }
 
-
-
+/* This is where the picture and buttons are nested */
 .picContainer {
     position: relative;
 }
 
+/* Buttons! */
 #playGame {
     font-family: 'Odibee Sans', cursive;
     background-color: rgb(138, 136, 136);
@@ -43,21 +45,25 @@ body {
     font-size: 18px;
 }
 
+/* This is the id selector for the question */
 #question {
     color: white;
     font-size: 20px;
     text-align: left;
 }
 
+/* This is the id selector for the answers */
 #answers {
     padding-left: 0;
 }
 
+/* id selector for the "correct!" or "wrong" */
 #answerResult {
     font-size: 20px;
     color: white;
 }
 
+/* This is the main quiz timer */
 #timeRemaining {
     color: white;
     font-size: 20px;
@@ -84,6 +90,7 @@ body {
     color: white;
 }
 
+/* FIX ME */
 .scoreTable {
     font-size: 20px;
     color: white;

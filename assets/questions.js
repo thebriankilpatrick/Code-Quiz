@@ -117,11 +117,11 @@ function countdownTimer() {  // Timer that counts down before quiz starts
         startTimer.textContent = "Quiz starts in " + countdownSeconds; 
         countdownSeconds--;
         if (countdownSeconds === 0) {
-            clearInterval(timerInterval);
             // Run new function
             quizTime();
             displayQuiz();
             startTimer.textContent = "";
+            clearInterval(timerInterval);
         }
     }, 1000);
 }
@@ -140,12 +140,16 @@ function quizTime() {
             gameOver();
             clearInterval(timerInterval);
         }
+        else if (currentQuestion === questionSet.length) {
+            clearTimeout(timerInterval);
+        }
     }, 1000);
 }
 
 var currentQuestion = 0;
 
 function displayQuiz() {
+
     var q = questionSet[currentQuestion];
     var a = q.answer;
     question.textContent = q.title;
@@ -166,12 +170,22 @@ function displayQuiz() {
             quizTimer -= 10;
             answerResult.textContent = "Wrong!";
         }
-        console.log(quizTimer);
         currentQuestion += 1;
+        if (currentQuestion === questionSet.length) {
+            gameWin();
+        }
         answers.innerHTML = ""; // This is to remove old answers
         displayQuiz();
         answers.removeEventListener("click" , checkAnswer);
     })
+}
+
+function gameWin() {   // See if this works with last question button click
+    removeQuiz();
+    quizEnd.textContent = "Game Over";
+    quizEndScore.textContent = "Your score: " + quizTimer;
+    // clearTimeout()
+    userEntry();
 }
 
 function removeQuiz() {
@@ -187,18 +201,36 @@ function gameOver() {
     userEntry();
 }
 
+// Change array to dynamically add 1,2,3...
+var user = ["user1", "user2", "user3", "user4", "user5"];  // See below at submitScore
+var index = 0;
+
 function userEntry() {
     var userInput = document.createElement("input");
+    var userSubmit = document.createElement("button");
     userInput.setAttribute("type", "text");
+    userInput.placeholder = "Name";
+    userSubmit.textContent = "Submit";
     userForm.appendChild(userInput);
+    userForm.appendChild(userSubmit);
+
+    userSubmit.addEventListener("click", function submitScore(event) {
+        event.preventDefault();
+        var userInfo = {  
+            name: " " + userInput.value,
+            score: " " + quizTimer,
+        };  
+        window.localStorage.setItem(user[index], JSON.stringify(userInfo));
+        index += 1;  // Add button to run function to do quiz again.
+    })
 }
 
-// Fix quizTimer to not go below 0
-// When quizTimer is equal to 0, run function
-// function ends game, creates a form, and pulls the int from quizTimer as score
+function viewScores() {  // Creating table to display high scores
+   
+}
 
 // Next steps..
-// Run function for quiz timer
-// Run function to display questions and answers
-// An incorrect answer will remove 10 seconds from timer, then display next question
-// A correct answer will display next question
+// function ends game, creates a form, and pulls the int from quizTimer as score
+// Add event listener to submit button, on click
+// On click, it will store user input and score into localStorage
+// Then it will display high scores page

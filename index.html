@@ -6,19 +6,19 @@
         </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="assets/style.css">
     </head>
 
     <body>
-        <div class="navbar"></div>
         <div class="mainContainer">
             <h2 id="startTimer"></h2> <!--This is the pre quiz countdown timer-->
             <div id="timeRemaining"></div>
-            <div>
+            <div class="picContainer">
                 <img src="assets/images/GoTHomeImage.jpeg" id="homeScreenImage"/>
+                <button id="playGame" onclick="startQuiz()">Play Game</button>
+                <button id="highScores" onclick="viewScores()">High Scores</button>
             </div>
-            <button id="playGame" onclick="startQuiz()">Play Game</button>
-            <button id="highScores">High Scores</button>
             <div class="questionContainer"> <!--This is where the questions will go-->
                 <p id="question"></p>
                 <ol id="answers"></ol>

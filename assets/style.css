@@ -4,20 +4,49 @@ body {
     background-color: rgb(0, 0, 0);
 }
 
-.navbar {
-    width: 100%;
-    height: 40px;
-    background-color: #dbdbdb;
-}
-
 .mainContainer {
     width: 100%;
     text-align: center;
 }
 
+.questionContainer {
+    width: 30%;
+    margin: 0 auto;
+}
+
+
+
+.picContainer {
+    position: relative;
+}
+
+#playGame {
+    font-family: 'Odibee Sans', cursive;
+    background-color: rgb(138, 136, 136);
+    border: none;
+    position: absolute;
+    left: 25%;
+    bottom: 50%;
+}
+
+#highScores {
+    font-family: 'Odibee Sans', cursive;
+    background-color: rgb(138, 136, 136);
+    border: none;
+    position: absolute;
+    right: 25%;
+    bottom: 50%;
+}
+
+.answerBtn {
+    font-family: 'Odibee Sans', cursive;
+    font-size: 18px;
+}
+
 #question {
     color: white;
     font-size: 20px;
+    text-align: left;
 }
 
 #answers {
@@ -53,4 +82,51 @@ body {
 #startTimer {
     font-size: 50px;
     color: white;
+}
+
+.scoreTable {
+    font-size: 20px;
+    color: white;
+}
+
+/* Media queries for responsiveness */
+
+@media only screen and (min-width: 600px) {
+    #highScores {
+        font-size: 15px;
+    }
+
+    #playGame {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    #highScores {
+        font-size: 18px;
+    }
+
+    #playGame {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (min-width: 9920x) {
+    #highScores {
+        font-size: 19px;
+    }
+
+    #playGame {
+        font-size: 19px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    #highScores {
+        font-size: 21px;
+    }
+
+    #playGame {
+        font-size: 21px;
+    }
 }

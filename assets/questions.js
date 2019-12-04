@@ -95,6 +95,8 @@ function countdownTimer() {  // Timer that counts down before quiz starts
     var timerInterval = setInterval(function() {
         startTimer.textContent = "Quiz starts in " + countdownSeconds; 
         countdownSeconds--;
+        console.log(countdownSeconds);
+        console.log(countdownSeconds === 0);
         if (countdownSeconds === 0) {
             // Run new function
             quizTime();  // Main quiz timer
@@ -107,9 +109,13 @@ function countdownTimer() {  // Timer that counts down before quiz starts
 
 
 function quizTime() {   // The main quiz timer.  You have 75 seconds to answer the questions
+    console.log("starting quiz timer");
     var timerInterval = setInterval(function() {
         timeRemaining.textContent = "Time Remaining: " + quizTimer;
         quizTimer--;
+        console.log("Quiz Timer", quizTimer);
+        console.log("Current Question:", currentQuestion);
+        console.log("Q Length", questionSet.length);
         if (quizTimer === 0) {
             gameOver();  // If you run out of time, run this quiz-ending function
             clearInterval(timerInterval);
@@ -123,7 +129,9 @@ function quizTime() {   // The main quiz timer.  You have 75 seconds to answer t
         }
         else if (currentQuestion === questionSet.length) {
             // If the index for the questionSet array is at length, stop the timer
+            console.log("clearing timer");
             clearTimeout(timerInterval);
+            currentQuestion = 0;
         }
     }, 1000);
 }
@@ -135,6 +143,7 @@ function displayQuiz() {  // The main function that displays the questions and a
 
     var q = questionSet[currentQuestion];
     var a = q.answer;
+    console.log("questionContainer", question);
     question.textContent = q.title;
     for (var i = 0; i < q.choices.length; i++) {
         // Creating a button for each answer in the appropriate question
@@ -155,19 +164,21 @@ function displayQuiz() {  // The main function that displays the questions and a
             answerResult.textContent = "Wrong!";
         }
         currentQuestion += 1;
+        answers.innerHTML = ""; // This is to remove old answers
         if (currentQuestion === questionSet.length) {
             // Runs this function to end the quiz if all the questions are answered before time runs out
             gameWin();
         }
-        answers.innerHTML = ""; // This is to remove old answers
-        displayQuiz();
+        else {
+            displayQuiz();
+        }
         // This removes the event listener, so when it applies again, it is the only listener applied to the buttons
         answers.removeEventListener("click" , checkAnswer);
     })
 }
 
 // This function runs if the user answers all the questions before the timer runs out
-function gameWin() {   // See if this works with last question button click
+function gameWin() {   
     removeQuiz();
     quizEnd.textContent = "Game Over";
     quizEndScore.textContent = "Your score: " + quizTimer;
@@ -176,9 +187,10 @@ function gameWin() {   // See if this works with last question button click
 
 // This function removes all quiz content
 function removeQuiz() {
-    answers.remove();
-    question.remove();
-    answerResult.remove();
+    answers.innerHTML = "";
+    question.innerHTML = "";
+    answerResult.innerHTML = "";
+    // currentQuestion = 0;
 }
 
 // This function is run when the timer runs to 0.  You lose, and your score is 0, noob
@@ -190,17 +202,30 @@ function gameOver() {
 }
 
 // Change array to dynamically add 1,2,3...  FIX ME!!
-var user = ["user1", "user2", "user3", "user4", "user5"];  // See below at submitScore
+// Look down at Next Steps..
 var index = 0;
+
+function setIndex() {
+    if (localStorage.getItem("index") === null) {
+        localStorage.setItem("index", 0);
+    }
+    else {
+        var newValue = parseInt(localStorage.getItem("index")) + 1;
+        localStorage.setItem("index", newValue);
+    }
+}
 
 function userEntry() {
     var userInput = document.createElement("input");
     var userSubmit = document.createElement("button");
+    var playAgain = document.createElement("button"); // This is new
     userInput.setAttribute("type", "text");
     userInput.placeholder = "Name";
-    userSubmit.textContent = "Submit";
+    userSubmit.textContent = "Submit Score";
+    playAgain.textContent = "Play Again"; // This is new
     userForm.appendChild(userInput);
     userForm.appendChild(userSubmit);
+    quizEndContainer.appendChild(playAgain);
 
     userSubmit.addEventListener("click", function submitScore(event) {
         event.preventDefault();
@@ -208,12 +233,28 @@ function userEntry() {
             name: " " + userInput.value,
             score: " " + quizTimer,
         };  
-        window.localStorage.setItem(user[index], JSON.stringify(userInfo));
-        index += 1;  // Add button to run function to do quiz again, perhaps?
+        setIndex();
+        window.localStorage.setItem("user " + (localStorage.getItem("index")), JSON.stringify(userInfo));
+    })
+
+    playAgain.addEventListener("click", function replay() {  // Function after countdownTimer is not running
+        quizTimer = 75;
+        countdownTimer();
+        quizEnd.innerHTML = "";
+        userInput.remove();
+        userSubmit.remove();
+        quizEndScore.innerHTML = "";
+        playAgain.remove();
+        timeRemaining.innerHTML = "";
     })
 }
+
 
 // Next steps..
 // Fix high score submit button
 // localStorage.getItem to display scores in a table, perhaps?
+
+// Try creating a button called "play again", and append it after the user input is submitted.
+// This will allow the quiz function to be ran again without having to refresh the page.
+// Also, create a home button.  Perhaps this can produce the same result
 

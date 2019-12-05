@@ -251,6 +251,8 @@ function userEntry() {
         quizTimer = 75;
         countdownTimer();
         quizEnd.innerHTML = "";
+        homePage.remove();
+        submitted.remove();
         userInput.remove();
         userSubmit.remove();
         quizEndScore.innerHTML = "";
@@ -268,9 +270,17 @@ function viewScores() {
     document.querySelector("#playGame").remove();
     document.querySelector("#highScores").remove();
     var scoreList = document.createElement("ol");
+    scoreList.className = "scoreList";
     questionContainer.append(scoreList);
     for (var i = 0; i < localStorage.length; i++) {
-        var listItem = localStorage.getItem(localStorage.key(i));
+        var grabItem = localStorage.getItem("user " + i);
+        if (grabItem === null) {
+            return;
+        }
+        var listItem = document.createElement("li");
+        listItem.className = "listItem";
+        listItem.textContent = grabItem;
+        scoreList.append(listItem);
         console.log(listItem);
     }
 }

@@ -108,6 +108,15 @@ body {
     color: white;
 }
 
+.scoreList {
+    text-align: left;
+}
+
+.listItem {
+    color: white;
+    font-size: 20px;
+}
+
 /* Media queries for responsiveness */
 
 @media only screen and (min-width: 600px) {

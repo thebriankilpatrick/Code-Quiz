@@ -219,13 +219,23 @@ function userEntry() {
     var userInput = document.createElement("input");
     var userSubmit = document.createElement("button");
     var playAgain = document.createElement("button"); // This is new
+    var homePage = document.createElement("button");
+    var submitted = document.createElement("p");
+    submitted.className = "submittedText";
+    userSubmit.className = "userSubmit";
     userInput.setAttribute("type", "text");
     userInput.placeholder = "Name";
     userSubmit.textContent = "Submit Score";
     playAgain.textContent = "Play Again"; // This is new
+    playAgain.className = "playAgain";
+    homePage.textContent = "Home";
+    homePage.className = "homePage";
     userForm.appendChild(userInput);
     userForm.appendChild(userSubmit);
+    quizEndContainer.appendChild(submitted);
     quizEndContainer.appendChild(playAgain);
+    quizEndContainer.appendChild(homePage);
+    console.log(submitted);
 
     userSubmit.addEventListener("click", function submitScore(event) {
         event.preventDefault();
@@ -235,6 +245,7 @@ function userEntry() {
         };  
         setIndex();
         window.localStorage.setItem("user " + (localStorage.getItem("index")), JSON.stringify(userInfo));
+        submitted.textContent = "Score submitted!"
     })
 
     playAgain.addEventListener("click", function replay() {  // Function after countdownTimer is not running
@@ -247,14 +258,14 @@ function userEntry() {
         playAgain.remove();
         timeRemaining.innerHTML = "";
     })
+
+    homePage.addEventListener("click", function reloadPage() {
+        location.reload();
+    })
 }
 
 
 // Next steps..
-// Fix high score submit button
 // localStorage.getItem to display scores in a table, perhaps?
 
-// Try creating a button called "play again", and append it after the user input is submitted.
-// This will allow the quiz function to be ran again without having to refresh the page.
-// Also, create a home button.  Perhaps this can produce the same result
 

@@ -1,4 +1,4 @@
-// Declaring my questions as a variable
+// Declaring my questions in an array
 // GAME OF THRONESSSSS
 
 var questionSet = [
@@ -201,11 +201,9 @@ function gameOver() {
     userEntry();
 }
 
-// Change array to dynamically add 1,2,3...  FIX ME!!
-// Look down at Next Steps..
 var index = 0;
 
-function setIndex() {
+function setIndex() {  // This function will allow for each new submit to create a new "user" in the localStorage to store the string
     if (localStorage.getItem("index") === null) {
         localStorage.setItem("index", 0);
     }
@@ -216,9 +214,10 @@ function setIndex() {
 }
 
 function userEntry() {
+    // Creating entry field and buttons
     var userInput = document.createElement("input");
     var userSubmit = document.createElement("button");
-    var playAgain = document.createElement("button"); // This is new
+    var playAgain = document.createElement("button"); 
     var homePage = document.createElement("button");
     var submitted = document.createElement("p");
     submitted.className = "submittedText";
@@ -226,7 +225,7 @@ function userEntry() {
     userInput.setAttribute("type", "text");
     userInput.placeholder = "Name";
     userSubmit.textContent = "Submit Score";
-    playAgain.textContent = "Play Again"; // This is new
+    playAgain.textContent = "Play Again"; 
     playAgain.className = "playAgain";
     homePage.textContent = "Home";
     homePage.className = "homePage";
@@ -248,7 +247,7 @@ function userEntry() {
         submitted.textContent = "Score submitted!"
     })
 
-    playAgain.addEventListener("click", function replay() {  // Function after countdownTimer is not running
+    playAgain.addEventListener("click", function replay() {  
         quizTimer = 75;
         countdownTimer();
         quizEnd.innerHTML = "";
@@ -264,8 +263,28 @@ function userEntry() {
     })
 }
 
+function viewScores() {
+    homeScreenImage.removeAttribute("src", "assets/images/GoTHomeImage.jpeg");
+    document.querySelector("#playGame").remove();
+    document.querySelector("#highScores").remove();
+    var scoreList = document.createElement("ol");
+    questionContainer.append(scoreList);
+    for (var i = 0; i < localStorage.length; i++) {
+        var listItem = localStorage.getItem(localStorage.key(i));
+        console.log(listItem);
+    }
+}
+
 
 // Next steps..
-// localStorage.getItem to display scores in a table, perhaps?
+// localStorage.getItem to display scores in an OL?
 
+// Write a function, that is called onclick 
+// This function will createElement an <ol>
+// Run a for loop to create a <li> for each object in the localStorage
+// Within the same loop, for each <li> that is created, getItem, and store in a var
+// set li.textContent = var 
+// See if that works...
 
+// Don't forget to append the <ol> to the container
+// And append the <li> to the <ol>

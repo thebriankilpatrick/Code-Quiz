@@ -7,3 +7,6 @@ The theme, you ask?  Game of Thrones, of course.
 ### Uses and How to Use  
 
 ![homePageSnip](https://user-images.githubusercontent.com/43326943/70282423-ba32b600-178b-11ea-8992-6e601680aff1.PNG)
+
+![quizSnip](https://user-images.githubusercontent.com/43326943/70282572-2ad9d280-178c-11ea-8053-8f7fa8dab67c.PNG)
+

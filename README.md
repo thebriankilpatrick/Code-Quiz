@@ -23,4 +23,12 @@ The score is determined by how many seconds are left on the timer.
 
 ![scoreSubmitSnip](https://user-images.githubusercontent.com/43326943/70282605-4ba22800-178c-11ea-9d4d-1612e4e8ade7.PNG)  
 
-When the quiz ends, the user will be prompted to enter his/her name to have the score entered on the high scores list.
+When the quiz ends, the user will be prompted to enter his/her name to have the score entered on the high scores list.  
+The user can click the "Play Again" button, and the quiz will restart.  
+The user could otherwise click the "Home" button, and be navigated back to the home page.
+
+### Credits  
+
+[W3Schools](https://www.w3schools.com)  
+[Stack Overflow](https://www.stackoverflow.com)  
+[Google Fonts](https://fonts.google.com)  

@@ -80,6 +80,10 @@ var quizEndScore = document.querySelector("#quizEndScore");
 var quizEnd = document.querySelector("#quizEnd");
 var userForm = document.querySelector("#userForm");
 
+// Grabbing my audio
+var correctSound = document.querySelector("#correctSound");
+var wrongSound = document.querySelector("#wrongSound");
+
 
 function startQuiz() {
     // Removing picture and buttons
@@ -158,10 +162,12 @@ function displayQuiz() {  // The main function that displays the questions and a
         var userChoice = e.target.textContent;
         if (userChoice === a) {  
             answerResult.textContent = "Correct!"
+            correctSound.play();
         }
         else {   
             quizTimer -= 10;
             answerResult.textContent = "Wrong!";
+            wrongSound.play();
         }
         currentQuestion += 1;
         answers.innerHTML = ""; // This is to remove old answers
@@ -273,8 +279,8 @@ function viewScores() {
     scoreList.className = "scoreList";
     questionContainer.append(scoreList);
     for (var i = 0; i < localStorage.length; i++) {
-        var grabItem = localStorage.getItem("user " + i);  // JSON.parse grabs [object Object]
-        if (grabItem === null) {                          // var name = localStorage.getItem("user " + i).name???
+        var grabItem = localStorage.getItem("user " + i);
+        if (grabItem === null) { 
             return;
         }
         var listItem = document.createElement("li");
@@ -285,8 +291,3 @@ function viewScores() {
         console.log(listItem);
     }
 }
-
-
-// Next steps..
-// Get the list to generate in order of score from highest to lowest
-// Also, see if you can get it to generate as a string, not as an object

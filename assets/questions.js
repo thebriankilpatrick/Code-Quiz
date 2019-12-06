@@ -273,13 +273,14 @@ function viewScores() {
     scoreList.className = "scoreList";
     questionContainer.append(scoreList);
     for (var i = 0; i < localStorage.length; i++) {
-        var grabItem = localStorage.getItem("user " + i);
-        if (grabItem === null) {
+        var grabItem = localStorage.getItem("user " + i);  // JSON.parse grabs [object Object]
+        if (grabItem === null) {                          // var name = localStorage.getItem("user " + i).name???
             return;
         }
         var listItem = document.createElement("li");
         listItem.className = "listItem";
-        listItem.textContent = grabItem;
+        var parseItem = JSON.parse(grabItem);
+        listItem.textContent = parseItem.name + ":" + parseItem.score;
         scoreList.append(listItem);
         console.log(listItem);
     }
@@ -287,14 +288,5 @@ function viewScores() {
 
 
 // Next steps..
-// localStorage.getItem to display scores in an OL?
-
-// Write a function, that is called onclick 
-// This function will createElement an <ol>
-// Run a for loop to create a <li> for each object in the localStorage
-// Within the same loop, for each <li> that is created, getItem, and store in a var
-// set li.textContent = var 
-// See if that works...
-
-// Don't forget to append the <ol> to the container
-// And append the <li> to the <ol>
+// Get the list to generate in order of score from highest to lowest
+// Also, see if you can get it to generate as a string, not as an object
